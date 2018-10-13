@@ -23,7 +23,7 @@
             _ (d/defer (ca/close! c))
             x (xa/<!! c :timeout 500)]
         (is (f/fail? x))
-        (is (= :jp.nijohando.ext.async/timeout @x))))))
+        (is (= ::xa/timeout @x))))))
 
 (deftest <!
   (testing "A value can be read from the channel"
@@ -48,7 +48,7 @@
         (-> (ca/go
               (let [x (xa/<! c :timeout 500)]
                 (is (f/fail? x))
-                (is (= xa/failure-timeout @x))))
+                (is (= ::xa/timeout @x))))
             (ca/<!!))))))
 
 (deftest >!!
@@ -64,14 +64,14 @@
         (ca/close! c)
         (let [x (xa/>!! c "foo")]
           (is (f/fail? x))
-          (is (= xa/failure-closed @x))))))
+          (is (= ::xa/closed @x))))))
   (testing "A failure is returned when getting a write timeout"
     (d/do*
       (let [c (ca/chan)
             _ (d/defer (ca/close! c))]
         (let [x (xa/>!! c "foo" :timeout 500)]
           (is (f/fail? x))
-          (is (= xa/failure-timeout @x)))))))
+          (is (= ::xa/timeout @x)))))))
 
 (deftest >!
   (testing "A value can be written to the channel"
@@ -89,7 +89,7 @@
         (-> (ca/go
               (let [x (xa/>! c "foo")]
                 (is (f/fail? x))
-                (is (= xa/failure-closed @x))))
+                (is (= ::xa/closed @x))))
             (ca/<!!)))))
   (testing "A failure is returned when getting a write timeout"
     (d/do*
@@ -98,7 +98,7 @@
         (-> (ca/go
               (let [x (xa/>! c "foo" :timeout 500)]
                 (is (f/fail? x))
-                (is (= xa/failure-timeout @x))))
+                (is (= ::xa/timeout @x))))
             (ca/<!!))))))
 
 (deftest close!

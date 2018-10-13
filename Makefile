@@ -17,7 +17,7 @@ TASK_GROUP_REPL=-C:dev:test -R:dev:repl:test:package:cljs -m prj.task.repl
 
 GROUP_ID=jp.nijohando
 ARTIFACT_ID=ext.async
-VERSION=0.1.0-SNAPSHOT
+VERSION=0.1.0
 JAR_FILE=$(WORK_DIR)/$(ARTIFACT_ID)-$(VERSION).jar
 DEPLOY_REPO_URL=https://clojars.org/repo
 LOCAL_REPO_PATH=~/.m2/repository
