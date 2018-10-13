@@ -5,18 +5,19 @@
 
 core.async helper utilities.
 
+     markdown
 ## Installation
 
 #### Ligningen / Boot
 
 ```clojure
-[jp.nijohando/ext.async "0.1.0-SNAPSHOT"]
+[jp.nijohando/ext.async "0.1.0"]
 ```
 
 #### Clojure CLI / deps.edn
 
 ```clojure
-jp.nijohando/ext.async {:mvn/version "0.1.0-SNAPSHOT"}
+jp.nijohando/ext.async {:mvn/version "0.1.0"}
 ```
 
 ## Usage
@@ -92,8 +93,8 @@ Timeout and write error are expressed as a failure object, it can be handled by 
 (f/if-succ [x (xa/>!! c "foo" :timeout 5000)]
   (prn "success")
   (condp = @x
-    xa/failure-timeout (prn "timeout!")
-    xa/failure-closed  (prn "channel closed!")))
+    ::xa/timeout (prn "timeout!")
+    ::xa/closed  (prn "channel closed!")))
 ```
 
 

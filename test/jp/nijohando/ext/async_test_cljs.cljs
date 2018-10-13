@@ -37,7 +37,7 @@
           (ca/go
             (let [x (xa/<! c :timeout 300)]
               (is (f/fail? x))
-              (is (= xa/failure-timeout @x)))
+              (is (= ::xa/timeout @x)))
             (done)
             (end)))))))
 
@@ -62,7 +62,7 @@
           (ca/go
             (let [x (xa/>! c "foo")]
               (is (f/fail? x))
-              (is (= xa/failure-closed @x)))
+              (is (= ::xa/closed @x)))
             (done)
             (end)))))))
 
@@ -75,7 +75,7 @@
           (ca/go
             (let [x (xa/>! c "foo" :timeout 300)]
               (is (f/fail? x))
-              (is (= xa/failure-timeout @x)))
+              (is (= ::xa/timeout @x)))
             (done)
             (end)))))))
 
